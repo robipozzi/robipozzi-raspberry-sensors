@@ -1,0 +1,44 @@
+--- # Ansible Playbook to configure a set of Raspberry PIs in a consistent and repeatable way
+# Software installation and configuration
+- hosts: raspberry_proxy
+  remote_user: "{{ user }}"
+  become: yes
+  vars:
+    src_dir: "{{ playbook_dir }}"
+    mode: u=rwx
+  vars_files:
+    - "{{ src_dir }}/conf/raspberry-config.yml"
+  pre_tasks:
+    ###############################################
+    ##### Update package manager repositories #####
+    ###############################################
+    - name: Update package manager repositories cache
+      apt:
+        update_cache: yes
+    ######################################
+    ##### Upgrade installed packages #####
+    ######################################
+    - name: Upgrade installed packages
+      apt:
+        upgrade: dist
+    ###########################
+    ##### Openssl Section #####
+    ###########################
+    - name: Install Openssl 
+      apt: 
+        name: openssl 
+        state: present
+  tasks:
+    ################################
+    ##### Kafka client Section #####
+    ################################
+    - name: Copy Kafka client programs to remote server
+      copy:
+        src: "../../kafka"
+        dest: "{{ remote_homeautomation_dir }}"
+        owner: "{{ user }}"
+        group: "{{ group }}"
+        mode: "{{ mode }}"
+    - name: Install required Python modules
+      pip:
+        requirements: "{{ remote_homeautomation_dir }}/kafka/requirements.txt"
