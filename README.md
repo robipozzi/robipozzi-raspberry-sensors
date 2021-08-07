@@ -24,7 +24,7 @@ These are the macro activities and steps to take to actually implement this logi
 5. Deploy Node.js server to run Home Automation UI component.
 
 ## Part 1
-Go to [Instructions](#Part1/README.md)
+Go to [Instructions](Part1/README.md)
 
 ## Part 2
-Go to [Instructions](#Part2/README.md)
+Go to [Instructions](Part2/README.md)
