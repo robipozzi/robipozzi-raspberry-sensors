@@ -66,15 +66,6 @@ cd $HOME/dev/windfire-home-automation/security
 ./pem-converter.sh
 ```
 
-All the magic happens in sensor.py Python program, which simulates data from DHT11 sensor and sends to a Kafka topic; Run the following:
-```
-## Set Bootstrap server for Kafka on Red Hat Openshift
-BOOTSTRAP_SERVER=<SET THE RIGHT BOOTSTRAP SERVER FOR YOUR KAFKA CLUSTER>
-
-## Run Python program
-KAFKA_BROKER=$BOOTSTRAP_SERVER SSL=true TOPIC=sensor python sensor.py
-```
-
 ### Deployment to Raspberry
 Python program needs to run on Raspberry, the Ansible playbook **[home-automation.yaml](deployment/raspberry/home-automation.yaml)** is provided to fully automate the deployment, run **[install.sh](deployment/raspberry/install.sh)** script to launch the deployment procedure.
 ```
@@ -95,10 +86,12 @@ The script will install all the required Python modules; after this you are fina
 cd /home/pi/home-automation/kafka
 ./run-sensor.sh
 ```
-For test purposes the program can also be run in simulated mode: it will not get data from the actual sensor but just randomly generate Temperature and Humidity data and send to Kafka topic. 
 
-To run in simulated mode:
+All the magic happens in sensor.py Python program, which simulates data from DHT11 sensor and sends to a Kafka topic; Run the following:
 ```
-cd /home/pi/home-automation/kafka
-./run-sensor.sh --simulate
+## Set Bootstrap server for Kafka on Red Hat Openshift
+BOOTSTRAP_SERVER=<SET THE RIGHT BOOTSTRAP SERVER FOR YOUR KAFKA CLUSTER>
+
+## Run Python program
+KAFKA_BROKER=$BOOTSTRAP_SERVER SSL=true TOPIC=sensor python sensor.py
 ```
