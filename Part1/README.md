@@ -70,7 +70,7 @@ The **[jkstopem.sh](jkstopem.sh)** script is provided to do the job, run the fol
 ### Deployment to Raspberry
 Python program needs to run on Raspberry, the Ansible playbook **[home-automation.yaml](deployment/raspberry/home-automation.yaml)** is provided to fully automate the deployment, run **[install.sh](deployment/raspberry/install.sh)** script to launch the deployment procedure.
 ```
-cd $HOME/dev/windfire-home-automation/deployment/raspberry
+cd deployment
 ./install.sh
 ```
 Refer to https://github.com/robipozzi/windfire-raspberry for instructions on how to setup Ansible on Raspberry.
