@@ -34,7 +34,7 @@
     ################################
     - name: Copy Kafka client programs to remote server
       copy:
-        src: "../../kafka"
+        src: "../kafka"
         dest: "{{ remote_homeautomation_dir }}"
         owner: "{{ user }}"
         group: "{{ group }}"
