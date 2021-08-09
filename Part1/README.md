@@ -68,7 +68,7 @@ The **[jkstopem.sh](jkstopem.sh)** script is provided to do the job, run the fol
 ```
 
 ### Deployment to Raspberry
-Python program needs to run on Raspberry, the Ansible playbook **[home-automation.yaml](deployment/raspberry/home-automation.yaml)** is provided to fully automate the deployment, run **[install.sh](deployment/raspberry/install.sh)** script to launch the deployment procedure.
+Python program needs to run on Raspberry, the Ansible playbook **[home-automation.yaml](deployment/home-automation.yaml)** is provided to fully automate the deployment, run **[install.sh](deployment/install.sh)** script to launch the deployment procedure.
 ```
 cd deployment
 ./install.sh
