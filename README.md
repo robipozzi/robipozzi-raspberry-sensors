@@ -1,8 +1,8 @@
 # Raspberry sensors project
 - [Introduction](#introduction)
 - [Architecture](#architecture)
-- [Part 1](#part1)
-- [Part 2](#part2)
+- [Part 1](#part-1)
+- [Part 2](#part-2)
 
 ## Introduction
 The concept of this project is to use sensors connected to a Raspberry Pi board and continuously get, visualize and manage data from the sensors.
