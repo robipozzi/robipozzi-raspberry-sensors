@@ -32,4 +32,4 @@ In the first we will
 [Go Here](Part1/README.md) for instructions.
 
 ## Part 2
-Go to [Instructions](Part2/README.md)
+[Go Here](Part2/README.md) for instructions.
