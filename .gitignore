@@ -4,9 +4,9 @@ Part1/kafka/certs/cert_and_key.p12
 Part1/kafka/certs/key.pem
 Part1/nodejs/certs/ca.crt
 Part1/nodejs/node_modules/
-Part1/security/certs/ca.crt
-Part1/security/certs/truststore.jks
 Part1/nodejs/.DS_Store
+Part1/certs/ca.crt
+Part1/certs/truststore.jks
 
 Part2/kafka/.DS_Store
 Part2/kafka/certs/CARoot.pem
@@ -15,3 +15,5 @@ Part2/kafka/certs/key.pem
 Part2/nodejs/certs/ca.crt
 Part2/nodejs/node_modules/
 Part2/nodejs/.DS_Store
+Part2/certs/ca.crt
+Part2/certs/truststore.jks

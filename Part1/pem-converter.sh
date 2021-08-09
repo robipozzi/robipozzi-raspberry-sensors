@@ -1,0 +1,1 @@
+source ./jkstopem.sh certs truststore.jks password root kafka/certs

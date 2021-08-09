@@ -48,7 +48,10 @@ From the Red Hat AMQ Streams operator administration page, do the following:
 * Create a Kafka topic and name it **sensor**.
 
 ## Send simulated data to Kafka with Python
-Before starting to send data to Kafka, we need to generate PEM files in order for Python to connect securely to the Kafka cluster deployed on OpenShift; do the following:
+The Kafka cluster running on Openshift is secured by default (Secrets are created within the cluster to hold TLS certificates) so, before starting to send data to Kafka, we need to extract the certificate from Kafka cluster:
+* Login to Openshift cluster.
+* Extract the certificate from Openshift Secret.
+* Create a truststore to hold the certificate.
 ```
 ## Login to Openshift 
 
@@ -58,11 +61,10 @@ oc extract secret/robipozzi-kafka-cluster-ca-cert --keys=ca.crt --to=certs --con
 ## Import extracted certificate to a Truststore
 keytool -import -trustcacerts -alias root -file certs/ca.crt -keystore certs/truststore.jks -storepass password -noprompt
 ```
-
-* The **[pem-converter.sh](security/pem-converter.sh)** script calls **[jkstopem.sh](security/jkstopem.sh)** which takes the keystore and generates the PEM file that can then be used by Python program to securely connect to Kafka.
+And then generate PEM files in order for a Python program to securely connect to Kafka.
+The **[jkstopem.sh](jkstopem.sh)** script is provided to do the job, run the following
 ```
-cd $HOME/dev/windfire-home-automation/security
-./pem-converter.sh
+./jkstopem.sh certs truststore.jks password root kafka/certs
 ```
 
 ### Deployment to Raspberry
