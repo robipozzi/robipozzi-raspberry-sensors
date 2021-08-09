@@ -14,7 +14,7 @@ To access code and scripts for the project, start by cloning this repository
 ```
 mkdir $HOME/dev
 cd $HOME/dev
-git https://github.com/robipozzi/robipozzi-raspberry-sensors 
+git clone https://github.com/robipozzi/robipozzi-raspberry-sensors 
 cd robipozzi-raspberry-sensors/Part1
 ```
 
@@ -67,11 +67,11 @@ The **[jkstopem.sh](jkstopem.sh)** script is provided to do the job, run the fol
 ./jkstopem.sh certs truststore.jks password root kafka/certs
 ```
 
-### Deployment to Raspberry
-Python program needs to run on Raspberry, the Ansible playbook **[home-automation.yaml](deployment/home-automation.yaml)** is provided to fully automate the deployment, run **[install.sh](deployment/install.sh)** script to launch the deployment procedure.
+### Deploy and run Python program on Raspberry
+Python program needs to run on Raspberry, an Ansible playbook **[home-automation.yaml](deployment/home-automation.yaml)** is provided to fully automate the deployment, run the following
 ```
 cd deployment
-./install.sh
+ansible-playbook home-automation.yaml
 ```
 Refer to https://github.com/robipozzi/windfire-raspberry for instructions on how to setup Ansible on Raspberry.
 
