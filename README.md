@@ -24,9 +24,9 @@ These are the macro activities and steps to take to actually implement this logi
 5. Deploy Node.js server to run Home Automation UI component.
 
 ## Part 1
-In this first part we will concentrate on Kafka setup and how to send data from Raspberry to a Kafka cluster through a Python program
-* Deploy a Kafka cluster (I instantiated Kafka using the very convenient Operator available on Red Hat Openshift);
-* Get the TLS certificate from Kafka and generate PEM files to connect securely to Kafka;
+In this first part we will concentrate on Kafka setup and how to send data from Raspberry Pi to a Kafka cluster using a Python program; we will go through the following steps:
+* Deploy a Kafka cluster, using Red Hat AMQ Streams Operator available on Red Hat Openshift;
+* Get the TLS certificate from Kafka and generate PEM files to securely connect to Kafka;
 * Deploy a Python program to Raspberry Pi to send data to Kafka (data will be simulated, then in a future article we will build on this and get real data from DHT11).
 
 [Go Here](Part1/README.md) for instructions.
