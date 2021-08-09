@@ -2,13 +2,11 @@
 - [Introduction](#introduction)
 - [Architecture](#architecture)
 - [Kafka cluster setup](#kafka-cluster-setup)
-- [Read and send sensor data with Python](#read-and-send-sensor-data-with-python)
+- [Send simulated data to Kafka with Python](#send-simulated-data-to-kafka-with-python)
 	- [Deployment to Raspberry](#deployment-to-raspberry)
 
 ## Introduction
 The concept of this project is to use sensors connected to a Raspberry Pi board and continuously get, visualize and manage data from the sensors.
-
-Initially, a DHT11 sensor is used to get Temperature and Humidity data points.
 
 To access code and scripts for the project, start by cloning this repository 
 ```
@@ -47,7 +45,7 @@ From the Red Hat AMQ Streams operator administration page, do the following:
 
 * Create a Kafka topic and name it **sensor**.
 
-## Read and send sensor data with Python
+## Send simulated data to Kafka with Python
 All the magic happens in **[sensor.py](kafka/sensor.py)** Python program, which reads data from DHT11 sensor and sends to a Kafka topic; 
 Run the following
 ```
