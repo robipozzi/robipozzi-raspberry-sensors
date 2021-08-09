@@ -24,7 +24,12 @@ These are the macro activities and steps to take to actually implement this logi
 5. Deploy Node.js server to run Home Automation UI component.
 
 ## Part 1
-Go to [Instructions](Part1/README.md)
+In the first we will 
+* Deploy a Kafka cluster (I instantiated Kafka using the very convenient Operator available on Red Hat Openshift);
+* Get the TLS certificate from Kafka and generate PEM files to connect securely to Kafka;
+* Deploy a Python program to Raspberry Pi to send data to Kafka (data will be simulated, then in a future article we will build on this and get real data from DHT11).
+
+[Go Here](Part1/README.md) for instructions.
 
 ## Part 2
 Go to [Instructions](Part2/README.md)
