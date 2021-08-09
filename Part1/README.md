@@ -77,7 +77,7 @@ Refer to https://github.com/robipozzi/windfire-raspberry for instructions on how
 
 Connect to Raspberry and you should find something like this
 
-[TODO] - add image
+![](images/raspberry.png)
 
 All the magic actually happens in **[sensor.py](kafka/sensor.py)** Python program, which simulates data from DHT11 sensor and sends to a Kafka topic.
 
