@@ -75,20 +75,20 @@ ansible-playbook home-automation.yaml
 ```
 Refer to https://github.com/robipozzi/windfire-raspberry for instructions on how to setup Ansible on Raspberry.
 
-Python program **[sensor.py](kafka/sensor.py)** uses some Python modules that need to be imported and available in the environment: required modules are defined in **[requirements.txt](kafka/requirements.txt)** file.
+Connect to Raspberry and you should find something like this
 
-Once you have deployed the program, **connect to Raspberry and launch the following**
+[TODO] - add image
+
+All the magic actually happens in **[sensor.py](kafka/sensor.py)** Python program, which simulates data from DHT11 sensor and sends to a Kafka topic.
+
+The **[sensor.py](kafka/sensor.py)** program uses some Python modules that need to be imported and available in the environment before you can run it: required modules are defined in **[requirements.txt](kafka/requirements.txt)** dependency file.
+
+When still connected to Raspberry Pi box run the following
 ```
 cd /home/pi/home-automation/kafka
-./pip-install.sh
+sudo pip install -r requirements.txt
 ```
-The script will install all the required Python modules; after this you are finally ready to launch Python program with the following:
-```
-cd /home/pi/home-automation/kafka
-./run-sensor.sh
-```
-
-All the magic happens in sensor.py Python program, which simulates data from DHT11 sensor and sends to a Kafka topic; Run the following:
+With this you are all set and ready to run Python program with the following.
 ```
 ## Set Bootstrap server for Kafka on Red Hat Openshift
 BOOTSTRAP_SERVER=<SET THE RIGHT BOOTSTRAP SERVER FOR YOUR KAFKA CLUSTER>
