@@ -3,7 +3,6 @@
 - [Architecture](#architecture)
 - [Kafka cluster setup](#kafka-cluster-setup)
 - [Send simulated data to Kafka with Python](#send-simulated-data-to-kafka-with-python)
-	- [Deployment to Raspberry](#deployment-to-raspberry)
 
 ## Introduction
 In this first part we will concentrate on Kafka setup and how to send data from Raspberry Pi to a Kafka cluster using a Python program; we will go through the following steps:
