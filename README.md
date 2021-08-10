@@ -32,4 +32,9 @@ In this first part we will concentrate on Kafka setup and how to send data from 
 [Go Here](Part1/README.md) for instructions.
 
 ## Part 2
+In this second part we will build on Part 1 and extend it to with the following steps:
+* Connect a DHT11 sensor to Raspberry Pi;
+* Modify **[sensory.py](kafka/sensory.py)** to read data from the sensor;
+* Run a Node.js web server to render the data with a simple HTML page and Javascript to continuously update Canvas Gauges charts (https://canvas-gauges.com/) that graphically represent the sensor data on the Web Ui interface.
+
 [Go Here](Part2/README.md) for instructions.
