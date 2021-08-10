@@ -1,1 +1,0 @@
-Put here certificate and truststore files to use for secure connection to Kafka cluster
