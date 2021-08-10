@@ -1,21 +1,23 @@
-# Raspberry sensors project - PART 1
+# Raspberry sensors project - PART 2
 - [Introduction](#introduction)
 - [Architecture](#architecture)
-- [Kafka cluster setup](#kafka-cluster-setup)
-- [Send simulated data to Kafka with Python](#send-simulated-data-to-kafka-with-python)
+- [Connect DHT11 sensor to Raspberry](#connect-DHT11-sensor-to-raspberry)
+- [Update Python program to read from sensor](#update-python-program-to-read-from-sensor)
+- [Consume sensor data with Node](#consume-sensor-data-with-node)
+
 
 ## Introduction
-In this first part we will concentrate on Kafka setup and how to send data from Raspberry Pi to a Kafka cluster using a Python program; we will go through the following steps:
-* Deploy a Kafka cluster, using Red Hat AMQ Streams Operator available on Red Hat Openshift;
-* Get the TLS certificate from Kafka and generate PEM files to securely connect to Kafka;
-* Deploy a Python program to Raspberry Pi to send data to Kafka (data will be simulated, then in a future article we will build on this and get real data from DHT11).
+In this second part we will build on Part 1 and extend it to with the following steps:
+* Connect a DHT11 sensor to Raspberry Pi;
+* Modify **[sensory.py](kafka/sensory.py)** to read data from the sensor;
+* Run a Node.js web server to render the data with a simple HTML page and Javascript to continuously update Canvas Gauges charts (https://canvas-gauges.com/) that graphically represent the sensor data on the Web Ui interface.
 
 To access code and scripts for the project, start by cloning this repository 
 ```
 mkdir $HOME/dev
 cd $HOME/dev
 git clone https://github.com/robipozzi/robipozzi-raspberry-sensors 
-cd robipozzi-raspberry-sensors/Part1
+cd robipozzi-raspberry-sensors/Part2
 ```
 
 ## Architecture
@@ -25,74 +27,22 @@ The logical architecture is sketched below
 
 ![](../images/architecture.png)
 
+## Connect DHT11 sensor to Raspberry
+[TODO]
 
-## Kafka cluster setup
-Kafka is a distributed system consisting of servers and clients that communicate via a high-performance TCP network protocol. It can be deployed on bare-metal hardware, virtual machines, and containers in on-premise as well as cloud environments, more info are available at https://kafka.apache.org/intro.
+## Update Python program to read from sensor
+[TODO]
 
-I find very convenient to instantiate it on Red Hat Openshift using Operator Hub, which provides Red Hat AMQ Streams, a massively scalable, distributed, and high performance data streaming platform based on the Apache Kafka® project; Red Hat AMQ Streams is built on the upstream open source project Strimzi.
+## Consume sensor data with Node
+Once Kafka is setup and Python is deployed and runs on Raspberry, data are continuously read from the DHT11 sensor and written to **sensor** Kafka topic, on the other end some application needs to read the data from Kafka and make use of it, and here comes the Node.js component of the architecture.
 
-In Red Hat Openshift console go to **OperatorHub**, search for Kafka and click on Red Hat AMQ Streams operator tile, as below
+The overall application logic is implemented in **[app.js](nodejs/app.js)** which basically does the following:
+1. Read data from **sensor** Kafka topic: **[sensorConsumer.js](nodejs/sensorConsumer.js)** is responsible for this task, using **kafkajs** (https://kafka.js.org/) to implement the logic to connect and consume data from Kafka topic.
+2. Send the data coming from Kafka to the User Interface component via a Web Socket.
+3. Render the data with a simple HTML page and Javascript to continuously update Canvas Gauges charts (https://canvas-gauges.com/) that graphically represent the sensor data on the Web Ui interface.
 
-![](images/operator-hub.png)
-
-Once the operator has been installed, go to **Installed Operators** and select Red Hat AMQ Streams, you will land on the operator administration page where you can create, configure and delete Apache Kafka clusters, topics and many more.
-
-![](images/installed-operators.png)
-
-From the Red Hat AMQ Streams operator administration page, do the following:
-
-* Create a Kafka cluster, name it **robipozzi-kafka**, ensure there is at least 1 listener of type **route** named **tls**: since it is of type route, this listener requires to have **tls=true** meaning that connection to the listener will be required to be secured with a TLS certificate.
-
-![](images/kafka-listener.png)
-
-* Create a Kafka topic and name it **sensor**.
-
-## Send simulated data to Kafka with Python
-The Kafka cluster running on Openshift is secured by default (Secrets are created within the cluster to hold TLS certificates) so, before starting to send data to Kafka, we need to extract the certificate from Kafka cluster:
-* Login to Openshift cluster.
-* Extract the certificate from Openshift Secret.
-* Create a truststore to hold the certificate.
+Run **[app-run.sh](ui/nodejs/app/app-run.sh)** shell script to start Node.js application.
 ```
-## Login to Openshift 
-
-## Extract the certificate key from the Openshift Secret
-oc extract secret/robipozzi-kafka-cluster-ca-cert --keys=ca.crt --to=certs --confirm -n openshift-operators
-
-## Import extracted certificate to a Truststore
-keytool -import -trustcacerts -alias root -file certs/ca.crt -keystore certs/truststore.jks -storepass password -noprompt
-```
-And then generate PEM files in order for a Python program to securely connect to Kafka.
-The **[jkstopem.sh](jkstopem.sh)** script is provided to do the job, run the following
-```
-./jkstopem.sh certs truststore.jks password root kafka/certs
-```
-
-### Deploy and run Python program on Raspberry
-Python program needs to run on Raspberry, an Ansible playbook **[home-automation.yaml](deployment/home-automation.yaml)** is provided to fully automate the deployment, run the following
-```
-cd deployment
-ansible-playbook home-automation.yaml
-```
-Refer to https://github.com/robipozzi/windfire-raspberry for instructions on how to setup Ansible on Raspberry.
-
-Connect to Raspberry and you should find something like this
-
-![](images/raspberry.png)
-
-All the magic actually happens in **[sensor.py](kafka/sensor.py)** Python program, which simulates data from DHT11 sensor and sends to a Kafka topic.
-
-The **[sensor.py](kafka/sensor.py)** program uses some Python modules that need to be imported and available in the environment before you can run it: required modules are defined in **[requirements.txt](kafka/requirements.txt)** dependency file.
-
-When still connected to Raspberry Pi box run the following
-```
-cd /home/pi/home-automation/kafka
-sudo pip install -r requirements.txt
-```
-With this you are all set and ready to run Python program with the following.
-```
-## Set Bootstrap server for Kafka on Red Hat Openshift
-BOOTSTRAP_SERVER=<SET THE RIGHT BOOTSTRAP SERVER FOR YOUR KAFKA CLUSTER>
-
-## Run Python program
-KAFKA_BROKER=$BOOTSTRAP_SERVER SSL=true TOPIC=sensor python sensor.py
+cd $HOME/dev/windfire-home-automation/ui/nodejs/app
+./app-run.sh
 ```
