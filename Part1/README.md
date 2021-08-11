@@ -94,11 +94,20 @@ When still connected to Raspberry Pi box run the following
 cd /home/pi/home-automation/kafka
 sudo pip install -r requirements.txt
 ```
-With this you are all set and ready to run Python program with the following.
+With this we are all set and ready to run Python program with the following commands
+
+**Pay attention to this**
+Get Route URL for Bootstrap Server (as seen in Figure 5) and remember to:
+- strip **https://** away from the Route URL
+- always add port **443** to the URL
+
 ```
 ## Set Bootstrap server for Kafka on Red Hat Openshift
-BOOTSTRAP_SERVER=<SET THE RIGHT BOOTSTRAP SERVER FOR YOUR KAFKA CLUSTER>
-
+BOOTSTRAP_SERVER=robipozzi-kafka-kafka-tls-bootstrap-openshift-operators.robipozzi-rhocp-420022-3c76f4d12b7fe02f9cab56e64bec3e29-0000.eu-de.containers.appdomain.cloud:443
 ## Run Python program
 KAFKA_BROKER=$BOOTSTRAP_SERVER SSL=true TOPIC=sensor python sensor.py
 ```
+
+You should see something similar to the following, meaning that Python program has connected to Kafka, is randomly generating simulated data for temperature and humidity and sending to Kafka topic.
+
+![](images/sensor-simulation.png)
