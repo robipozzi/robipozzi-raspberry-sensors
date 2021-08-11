@@ -28,10 +28,12 @@ The logical architecture is sketched below
 ![](../images/architecture.png)
 
 ## Connect DHT11 sensor to Raspberry
-[TODO]
+First step is obviously to connect a sensor to a Raspberry Pi; instructions on how to setup a DHT11 sensor are conveniently accessible at the following link https://www.raspberrypi-spy.co.uk/2017/09/dht11-temperature-and-humidity-sensor-raspberry-pi/?utm_source=pocket_mylist.
 
 ## Update Python program to read from sensor
-[TODO]
+The logic to send data to a Kafka topic resides in **[sensor.py](kafka/sensor.py)** Python program; in Part1 the program simulated sensor data by randomly generating temperature and humidity values.
+
+The first thing to do is now getting rid of the simulation and reading real data from the connected DHT11 sensor: have a look at the updated **[sensor.py](kafka/sensor.py)** Python program.
 
 ## Consume sensor data with Node
 Once Kafka is setup and Python is deployed and runs on Raspberry, data are continuously read from the DHT11 sensor and written to **sensor** Kafka topic, on the other end some application needs to read the data from Kafka and make use of it, and here comes the Node.js component of the architecture.
