@@ -47,6 +47,12 @@ From the Red Hat AMQ Streams operator administration page, do the following:
 
 * Create a Kafka topic and name it **sensor**.
 
+Once the previous steps have been completed, Kafka cluster with listeners and topic will run as pods within Red Hat Openshift and a Route will be configured to allow access from outside the cluster.
+
+In the Openshift console go to Networking → Route and write down the Route for Kafka Bootstrap Server, as below.
+
+![](images/kafka-bootstrap-route.png)
+
 ## Send simulated data to Kafka with Python
 The Kafka cluster running on Openshift is secured by default (Secrets are created within the cluster to hold TLS certificates) so, before starting to send data to Kafka, we need to extract the certificate from Kafka cluster:
 * Login to Openshift cluster.
