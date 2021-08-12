@@ -125,4 +125,5 @@ KAFKA_SENSOR_TOPIC=sensor \
 npm start
 ```
 
-[TODO]
+In a web browser launch **http://localhost:8082** and you should find something similar to this.
+![](images/ui-sensordata.png)
