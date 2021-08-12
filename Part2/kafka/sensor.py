@@ -1,10 +1,9 @@
+import Adafruit_DHT
 from kafka import KafkaProducer
 from colorama import init, Fore, Back, Style
 import os
 import sys
 import json
-import time
-import random
 
 # ***** Initializes Colorama to format printing
 init(autoreset=True)
@@ -15,6 +14,10 @@ init(autoreset=True)
 producer = None
 caRootLocation='certs/CARoot.pem'
 password='password'
+# Set sensor type : Options are DHT11, DHT22 or AM2302
+sensor=Adafruit_DHT.DHT11
+# Set GPIO sensor is connected to
+gpio=17
 # Get environment variables
 kafkaBrokers = os.getenv('KAFKA_BROKER')
 SSL = os.getenv('SSL')
@@ -22,17 +25,6 @@ topic = os.getenv('TOPIC')
 # ********************************************
 # ****** Variables initialization - END ******
 # ********************************************
-
-# *****************************
-# ***** Functions - START *****
-# *****************************
-def simulate_sensor():
-    temperature = random.randint(-10, 50)
-    humidity = random.randint(0, 100)
-    return humidity, temperature
-# *****************************
-# ****** Functions - END ******
-# *****************************
 
 # **********************************
 # ***** Main program execution *****
@@ -55,9 +47,9 @@ if __name__ == '__main__':
 
     while True:
         try:
-            print(Style.BRIGHT + 'Simulate sensor reading')
-            humidity, temperature = simulate_sensor();
-            time.sleep(5)
+            # Use read_retry method. This will retry up to 15 times to
+            # get a sensor reading (waiting 2 seconds between each retry).
+            humidity, temperature = Adafruit_DHT.read_retry(sensor, gpio)
 
             if humidity is not None and temperature is not None:
                 print('Temp={0:0.1f}*C  Humidity={1:0.1f}%'.format(temperature, humidity))
