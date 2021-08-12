@@ -125,5 +125,5 @@ KAFKA_SENSOR_TOPIC=sensor \
 npm start
 ```
 
-In a web browser launch **http://localhost:8082** and you should find something similar to this.
+In a web browser launch **http://localhost:8082** and you should find something similar to this, you will see the gauges updating with the data coming from the sensor attached to Raspberry Pi.
 ![](images/ui-sensordata.png)
