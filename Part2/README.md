@@ -100,8 +100,29 @@ The overall application logic is implemented in **[app.js](nodejs/app.js)** whic
 2. Send the data coming from Kafka to the User Interface component via a Web Socket.
 3. Render the data with a simple HTML page and Javascript to continuously update Canvas Gauges charts (https://canvas-gauges.com/) that graphically represent the sensor data on the Web Ui interface.
 
-Run **[app-run.sh](ui/nodejs/app/app-run.sh)** shell script to start Node.js application.
+Node.js application also needs to securely connect to the Kafka cluster to consume the sensor data and so, before running it, we will need to access the correct TLS certificate.
+
+The following command will do the job, extracting the certificate from Openshift Secret and copying it to nodejs/certs sub-folder where is available for the Node.js application to pick it up and use it to securely connect to Kafka.
 ```
-cd $HOME/dev/windfire-home-automation/ui/nodejs/app
-./app-run.sh
+## Login to Openshift 
+
+## Extract the certificate key from the Openshift Secret
+oc extract secret/robipozzi-kafka-cluster-ca-cert --keys=ca.crt --to=nodejs/certs --confirm -n openshift-operators
 ```
+The application uses some Node.js modules, that you need to install using NPM, do the following.
+```
+### Install required modules with NPM
+npm install
+```
+With this we can finally start and run the application with the following.
+```
+## Set Bootstrap server for Kafka on Red Hat Openshift
+KAFKA_BOOTSTRAP_SERVER=robipozzi-kafka-kafka-tls-bootstrap-openshift-operators.robipozzi-rhocp-420022-3c76f4d12b7fe02f9cab56e64bec3e29-0000.eu-de.containers.appdomain.cloud:443
+
+## Run Node.js server
+KAFKA_BOOTSTRAP_SERVER=$KAFKA_BOOTSTRAP_SERVER \
+KAFKA_SENSOR_TOPIC=sensor \
+npm start
+```
+
+[TODO]
