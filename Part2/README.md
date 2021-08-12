@@ -56,7 +56,7 @@ The **[jkstopem.sh](jkstopem.sh)** script is provided to do the job, run the fol
 ### Deploy and run Python program on Raspberry
 Python program needs to run on Raspberry, an Ansible playbook **[home-automation.yaml](deployment/home-automation.yaml)** is provided to fully automate the deployment, run the following
 ```
-cd deployment
+cd $HOME/dev/robipozzi-raspberry-sensors/Part2/deployment
 ansible-playbook home-automation.yaml
 ```
 Refer to https://github.com/robipozzi/windfire-raspberry for instructions on how to setup Ansible on Raspberry.
@@ -104,6 +104,8 @@ Node.js application also needs to securely connect to the Kafka cluster to consu
 
 The following command will do the job, extracting the certificate from Openshift Secret and copying it to nodejs/certs sub-folder where is available for the Node.js application to pick it up and use it to securely connect to Kafka.
 ```
+cd $HOME/dev/robipozzi-raspberry-sensors/Part2
+
 ## Login to Openshift 
 
 ## Extract the certificate key from the Openshift Secret
@@ -111,6 +113,8 @@ oc extract secret/robipozzi-kafka-cluster-ca-cert --keys=ca.crt --to=nodejs/cert
 ```
 The application uses some Node.js modules, that you need to install using NPM, do the following.
 ```
+cd $HOME/dev/robipozzi-raspberry-sensors/Part2/nodejs
+
 ### Install required modules with NPM
 npm install
 ```
