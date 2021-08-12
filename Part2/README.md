@@ -63,7 +63,7 @@ Refer to https://github.com/robipozzi/windfire-raspberry for instructions on how
 
 Connect to Raspberry and you should find something like this
 
-![](../images/raspberry.png)
+![](images/raspberry.png)
 
 All the magic actually happens in **[sensor.py](kafka/sensor.py)** Python program, which simulates data from DHT11 sensor and sends to a Kafka topic.
 
@@ -90,7 +90,7 @@ KAFKA_BROKER=$BOOTSTRAP_SERVER SSL=true TOPIC=sensor python sensor.py
 
 You should see something similar to the following, meaning that Python program has connected to Kafka, is randomly generating simulated data for temperature and humidity and sending to Kafka topic.
 
-![](../images/sensor-simulation.png)
+![](images/sensor-simulation.png)
 
 ## Consume sensor data with Node
 Once Kafka is setup and Python is deployed and runs on Raspberry, data are continuously read from the DHT11 sensor and written to **sensor** Kafka topic, on the other end some application needs to read the data from Kafka and make use of it, and here comes the Node.js component of the architecture.
