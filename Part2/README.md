@@ -43,7 +43,7 @@ The Kafka cluster running on Openshift is secured by default (Secrets are create
 ## Login to Openshift 
 
 ## Extract the certificate key from the Openshift Secret
-oc extract secret/robipozzi-kafka-cluster-ca-cert --keys=ca.crt --to=certs --confirm -n openshift-operators
+oc extract secret/robipozzi-kafka-cluster-ca-cert --keys=ca.crt --to=certs --confirm -n windfire-kafka
 
 ## Import extracted certificate to a Truststore
 keytool -import -trustcacerts -alias root -file certs/ca.crt -keystore certs/truststore.jks -storepass password -noprompt
@@ -83,7 +83,7 @@ Get Route URL for Bootstrap Server (as seen in Figure 5) and remember to:
 
 ```
 ## Set Bootstrap server for Kafka on Red Hat Openshift
-BOOTSTRAP_SERVER=robipozzi-kafka-kafka-tls-bootstrap-openshift-operators.robipozzi-rhocp-420022-3c76f4d12b7fe02f9cab56e64bec3e29-0000.eu-de.containers.appdomain.cloud:443
+BOOTSTRAP_SERVER=robipozzi-kafka-kafka-tls-bootstrap-windfire-kafka.robipozzi-rhocp-420022-3c76f4d12b7fe02f9cab56e64bec3e29-0000.eu-de.containers.appdomain.cloud:443
 ## Run Python program
 KAFKA_BROKER=$BOOTSTRAP_SERVER SSL=true TOPIC=sensor python sensor.py
 ```
@@ -109,7 +109,7 @@ cd $HOME/dev/robipozzi-raspberry-sensors/Part2
 ## Login to Openshift 
 
 ## Extract the certificate key from the Openshift Secret
-oc extract secret/robipozzi-kafka-cluster-ca-cert --keys=ca.crt --to=nodejs/certs --confirm -n openshift-operators
+oc extract secret/robipozzi-kafka-cluster-ca-cert --keys=ca.crt --to=nodejs/certs --confirm -n windfire-kafka
 ```
 The application uses some Node.js modules, that you need to install using NPM, do the following.
 ```
@@ -121,7 +121,7 @@ npm install
 With this we can finally start and run the application with the following.
 ```
 ## Set Bootstrap server for Kafka on Red Hat Openshift
-KAFKA_BOOTSTRAP_SERVER=robipozzi-kafka-kafka-tls-bootstrap-openshift-operators.robipozzi-rhocp-420022-3c76f4d12b7fe02f9cab56e64bec3e29-0000.eu-de.containers.appdomain.cloud:443
+KAFKA_BOOTSTRAP_SERVER=robipozzi-kafka-kafka-tls-bootstrap-windfire-kafka.robipozzi-rhocp-420022-3c76f4d12b7fe02f9cab56e64bec3e29-0000.eu-de.containers.appdomain.cloud:443
 
 ## Run Node.js server
 KAFKA_BOOTSTRAP_SERVER=$KAFKA_BOOTSTRAP_SERVER \
