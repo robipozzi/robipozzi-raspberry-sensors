@@ -18,3 +18,5 @@ Part2/nodejs/.DS_Store
 Part2/certs/ca.crt
 Part2/certs/truststore.jks
 Part2/.DS_Store
+Part1/images/.DS_Store
+Part2/certs/.DS_Store
