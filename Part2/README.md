@@ -77,6 +77,7 @@ sudo pip install -r requirements.txt
 With this we are all set and ready to run Python program with the following commands
 
 **Pay attention to this**
+
 Get Route URL for Bootstrap Server (as seen in Figure 5) and remember to:
 - strip **https://** away from the Route URL
 - always add port **443** to the URL
@@ -88,9 +89,9 @@ BOOTSTRAP_SERVER=robipozzi-kafka-kafka-tls-bootstrap-windfire-kafka.robipozzi-rh
 KAFKA_BROKER=$BOOTSTRAP_SERVER SSL=true TOPIC=sensor python sensor.py
 ```
 
-You should see something similar to the following, meaning that Python program has connected to Kafka, is randomly generating simulated data for temperature and humidity and sending to Kafka topic.
+You should see something similar to the following, meaning that Python program has connected to Kafka, is reading real data for temperature and humidity from the attached DHT11 sensor and sending to Kafka topic.
 
-![](images/sensor-simulation.png)
+![](images/sensor-data.png)
 
 ## Consume sensor data with Node
 Once Kafka is setup and Python is deployed and runs on Raspberry, data are continuously read from the DHT11 sensor and written to **sensor** Kafka topic, on the other end some application needs to read the data from Kafka and make use of it, and here comes the Node.js component of the architecture.
