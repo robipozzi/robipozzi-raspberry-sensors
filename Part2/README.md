@@ -76,7 +76,7 @@ sudo pip install -r requirements.txt
 ```
 With this we are all set and ready to run Python program with the following commands
 
-**Pay attention to this**
+**##### Pay attention to this #####**
 
 Get Route URL for Bootstrap Server (as seen in Figure 5) and remember to:
 - strip **https://** away from the Route URL
